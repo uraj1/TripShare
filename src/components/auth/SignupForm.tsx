@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
-import { UserPlus, Mail, Lock, User } from 'lucide-react';
+import { UserPlus, Mail, Lock, User, ArrowRight } from 'lucide-react';
 
 export function SignupForm() {
   const [email, setEmail] = useState('');
@@ -15,20 +15,47 @@ export function SignupForm() {
     signup(email, password, name);
   };
 
+  const handleGoogleSignUp = () => {
+    // Logic for Google sign-up goes here
+    alert('Google Sign-Up clicked!');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-between bg-black py-12 px-4 sm:px-6 lg:px-8">
+      {/* Left Side */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="hidden lg:flex flex-col justify-center items-start text-yellow-400 w-1/2 px-8"
+      >
+        <h1 className="text-5xl font-bold mb-6 leading-tight">
+          Join Us and <span className="text-white">Discover</span> the World
+        </h1>
+        <p className="text-lg mb-8 text-gray-400">
+          A seamless experience awaits. Sign up now and unlock endless possibilities.
+        </p>
+        <motion.div
+          whileHover={{ x: 10 }}
+          className="flex items-center gap-3 text-yellow-400 hover:text-yellow-300 text-lg cursor-pointer"
+        >
+          <Link to="/login">Already have an account?</Link>
+          <ArrowRight />
+        </motion.div>
+      </motion.div>
+
+      {/* Right Side */}
+      <div className="flex items-center mt-12 justify-center w-full lg:w-1/2">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-black p-8 rounded-xl shadow-lg"
+          className="bg-black p-8 rounded-xl shadow-lg w-full max-w-md"
         >
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-yellow-400">Create Account</h2>
-            <p className="mt-2 text-gray-400">Join us on your travel journey</p>
+            <p className="mt-2 text-gray-400">Join us on your journey</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div>
               <label className="block text-yellow-400 mb-2">Name</label>
               <div className="relative">
@@ -80,23 +107,30 @@ export function SignupForm() {
               <UserPlus className="h-5 w-5" />
               Create Account
             </motion.button>
-
-            <p className="text-center text-white mt-4">
-              Already have an account?{' '}
-              <Link to="/login" className="text-yellow-400 hover:text-yellow-300">
-                Sign in
-              </Link>
-            </p>
           </form>
-        </motion.div>
 
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba"
-            alt="Background"
-            className="object-cover w-full h-full opacity-20"
-          />
-        </div>
+          {/* Sign Up with Google */}
+          <div className="mt-6">
+            <button
+              onClick={handleGoogleSignUp}
+              className="w-full flex items-center justify-center gap-2 bg-gray-800 text-yellow-400 px-6 py-3 rounded-lg font-semibold hover:bg-gray-700"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                alt="Google"
+                className="h-5 w-5"
+              />
+              Sign up with Google
+            </button>
+          </div>
+
+          <p className="text-center text-white mt-4">
+            Already have an account?{' '}
+            <Link to="/login" className="text-yellow-400 hover:text-yellow-300">
+              Sign in
+            </Link>
+          </p>
+        </motion.div>
       </div>
     </div>
   );
