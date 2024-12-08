@@ -1,14 +1,13 @@
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useTrip } from "../../context/TripContext";
+import { useState, useEffect } from "react";
+import { ExpenseForm } from "../expenses/ExpenseForm";
+import Modal from "../expenses/ExpenseTracker/Modal";
+import "../../index.css";
+import { TripHeader } from "./TripHeader";
+import { ExpenseSection } from "./ExpenseSection";
 
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { useTrip } from '../../context/TripContext';
-import { useState, useEffect } from 'react';
-
-import { ExpenseForm } from '../expenses/ExpenseForm';
-import Modal from '../expenses/ExpenseTracker/Modal';
-import '../../index.css'
-import { TripHeader } from './TripHeader';
-import { ExpenseSection } from './ExpenseSection';
 
 function TripManager() {
   const { currentTrip } = useTrip();
@@ -39,6 +38,9 @@ function TripManager() {
   };
 
   useEffect(() => {
+    
+    window.scrollTo(0, 0);
+
     if (!currentTrip) {
       navigate("/");
       return;
@@ -51,10 +53,11 @@ function TripManager() {
   }, [currentTrip, navigate]);
 
   return (
-    <div className="min-h-screen relative">
-      <div className="parallax-bg" />
-      
-      <div className="relative z-10">
+    <div className="flex flex-col min-h-screen">
+     
+      <div className="parallax-bg h-screen bg-cover bg-fixed" />
+
+      <div className="relative z-10 flex-grow">
         <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-6xl">
           {currentTrip ? (
             <>
@@ -89,6 +92,8 @@ function TripManager() {
         </div>
       </div>
 
+
+      {/* Modal for Expense Form */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ExpenseForm
           dayOptions={dayOptions}

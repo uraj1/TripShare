@@ -44,7 +44,9 @@ function App() {
           </div>
         </TripProvider>
       </AuthProvider>
-      <Footer />
+      <div className="relative z-20">
+        <Footer />
+      </div>
     </Router>
   );
 }
